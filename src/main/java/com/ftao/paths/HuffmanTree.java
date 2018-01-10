@@ -21,6 +21,46 @@ public class HuffmanTree {
             this.range=range;
 
         }
+        public Node(){}
+        public E getData() {
+            return data;
+        }
+
+        public void setData(E data) {
+            this.data = data;
+        }
+
+        public Integer getWeight() {
+            return weight;
+        }
+
+        public void setWeight(Integer weight) {
+            this.weight = weight;
+        }
+
+        public Node getLeftChild() {
+            return leftChild;
+        }
+
+        public void setLeftChild(Node leftChild) {
+            this.leftChild = leftChild;
+        }
+
+        public Node getRightChild() {
+            return rightChild;
+        }
+
+        public void setRightChild(Node rightChild) {
+            this.rightChild = rightChild;
+        }
+
+        public Integer getRange() {
+            return range;
+        }
+
+        public void setRange(Integer range) {
+            this.range = range;
+        }
     }
 
     public static Node createTree(List<Node> nodes)
@@ -143,7 +183,7 @@ public class HuffmanTree {
         list=breadthFirst(root);
         //符合total在节点的范围空间内的节点列表
         List<Node> result=new ArrayList<Node>();
-        for(Integer count=0;count<list.size()-1;count++)
+        for(Integer count=0;count<list.size();count++)
         {
             if(total>=list.get(count).weight-list.get(count).range&&total<list.get(count).weight+list.get(count).range)
             {
@@ -152,7 +192,22 @@ public class HuffmanTree {
 
         }
         return result;
+    }
+    public static List<Node> findNode2(Node root,Integer total)
+    {
+        List<Node> list=new ArrayList<Node>();
+        list=breadthFirst(root);
+        //符合total在节点的范围空间内的节点列表
+        List<Node> result=new ArrayList<Node>();
+        for(Integer count=0;count<list.size();count++)
+        {
+            if((total>=(list.get(count).weight))&&(total<=(list.get(count).weight+list.get(count).range)))
+            {
+                result.add(list.get(count));
+            }
 
+        }
+        return result;
 
     }
 }
