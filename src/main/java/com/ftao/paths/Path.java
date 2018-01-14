@@ -13,6 +13,15 @@ public class Path {
     private Integer ran;
     private String route;
     private String remark;
+    private Integer spend;
+
+    public Integer getSpend() {
+        return spend;
+    }
+
+    public void setSpend(Integer spend) {
+        this.spend = spend;
+    }
 
     public Integer getRan() {
         return ran;

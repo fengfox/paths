@@ -68,22 +68,52 @@ public class PathsController {
 
     }
 
+    /***
+     * 获取计算出的路径，并对路径进行判断，如果路径总的spend大于或者等于指定数值，则重新计算路径。
+     * @param total
+     * @return
+     */
     @PostMapping(value="/paths/getPaths")
-    public List<Path> pathSort(@RequestParam("total") Integer total)
+    public List<Path> getPaths(@RequestParam("total") Integer total)
     {
         List<Path> paths=new ArrayList<Path>();
-        paths=this.findAllPath();
-        //生成一个随机数字,在1-paths.size()之间
-        paths=this.pathsRandom(paths);
-        List<HuffmanTree.Node> nodes=this.pathsSort(paths,total);
-        //System.out.println(nodes.size());
-        //System.out.println(nodes.get(0));
-        //随机选一颗树作为解
-        Random random=new Random();
-        int result=random.nextInt(nodes.size());
-        return rebuildPath(toPaths(nodes.get(result)),total);
-        //return nodes;
+        do {
+            paths = this.pathSort(total);
+        }
+        //检查是否花费的天数大于44(假定每天2个spend,22个工作日为44个spend)
+        while(this.checkSpend(paths,44)==false);
 
+
+        return paths;
+
+
+    }
+
+    /***
+     * 根据给出的值计算路径。
+     * @param total
+     * @return
+     */
+    public List<Path> pathSort( Integer total)
+    {
+        try {
+            List<Path> paths = new ArrayList<Path>();
+            paths = this.findAllPath();
+            //生成一个随机数字,在1-paths.size()之间
+            paths = this.pathsRandom(paths);
+            List<HuffmanTree.Node> nodes = this.pathsSort(paths, total);
+            //System.out.println(nodes.size());
+            //System.out.println(nodes.get(0));
+            //随机选一颗树作为解
+            Random random = new Random();
+            int result = random.nextInt(nodes.size());
+            return rebuildPath(toPaths(nodes.get(result)), total);
+            //return nodes;
+        }
+        catch (Exception e)
+        {
+            throw e;
+        }
     }
 
     /***
@@ -162,8 +192,30 @@ public class PathsController {
         return paths;
 
 
+    }
 
-
+    /***
+     * 检查paths中行程的花费时间是否大于指定时间(每个月可以用的总时间)
+     * 如果大于则返回false,小于等于返回false
+     * @param paths
+     * @param totalSpend
+     * @return
+     */
+    private boolean checkSpend(List<Path> paths,Integer totalSpend )
+    {
+        Integer sum=0;
+        for(int i=0;i<paths.size();i++)
+        {
+            sum=sum+paths.get(i).getSpend();
+        }
+        if(sum>totalSpend)
+        {
+            return false;
+        }
+        else
+        {
+            return true;
+        }
     }
 
 }
