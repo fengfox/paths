@@ -1,4 +1,4 @@
-package com.ftao.paths;
+package com.ftao.paths.domain;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -13,14 +13,14 @@ public class Path {
     private Integer ran;
     private String route;
     private String remark;
-    private Integer spend;
+    private Integer times;
 
-    public Integer getSpend() {
-        return spend;
+    public Integer getTimes() {
+        return times;
     }
 
-    public void setSpend(Integer spend) {
-        this.spend = spend;
+    public void setTimes(Integer times) {
+        this.times = times;
     }
 
     public Integer getRan() {

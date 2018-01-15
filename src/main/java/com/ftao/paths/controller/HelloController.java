@@ -1,4 +1,4 @@
-package com.ftao.paths;
+package com.ftao.paths.controller;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;

@@ -1,4 +1,4 @@
-package com.ftao.paths;
+package com.ftao.paths.utils;
 
 import java.util.ArrayDeque;
 import java.util.ArrayList;
