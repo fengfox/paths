@@ -21,13 +21,16 @@ public class CarController {
         return ResultUtil.success(carService.getCar(id));
     }
     @PostMapping(value="/cars/add")
-    public Result carAdd(@Valid Car car)
+    public Result carAdd(@Valid Car car,BindingResult bindingResult)
     {
-
+        if(bindingResult.hasErrors())
+        {
+            return ResultUtil.error(1,bindingResult.getFieldError().getDefaultMessage());
+        }
         return ResultUtil.success(carService.carAdd(car));
     }
-    @PostMapping(value="/cars/del")
-    public Result carDel(@RequestParam("id") Integer id)
+    @DeleteMapping(value="/cars/delete/{id}")
+    public Result carDel(@PathVariable("id") Integer id)
     {
 
         carService.carDel(id);
@@ -39,5 +42,13 @@ public class CarController {
     {
         return ResultUtil.success(carService.carsFindAll());
     }
-
+    @PutMapping(value="/cars/update")
+    public Result carUpdate(@Valid Car car,BindingResult bindingResult)
+    {
+        if(bindingResult.hasErrors())
+        {
+            return ResultUtil.error(1,bindingResult.getFieldError().getDefaultMessage());
+        }
+        return ResultUtil.success(carService.carUpdate(car));
+    }
 }

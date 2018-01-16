@@ -26,6 +26,8 @@ public class CarService {
     }
     public Car carUpdate(Car car)
     {
+        Car mycar=new Car();
+
         return carRepository.save(car);
     }
     public List<Car> carsFindAll()

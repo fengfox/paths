@@ -37,7 +37,9 @@ public class Path {
         return id;
     }
 
-
+    public void setId(Integer id) {
+        this.id = id;
+    }
 
     public Integer getLength() {
         return length;
