@@ -11,19 +11,7 @@ public class Driver {
     private Integer id;
     private String name;
 
-    @ManyToMany(cascade = CascadeType.PERSIST, fetch=FetchType.LAZY)
-    @JoinTable(name="Car_Driver",joinColumns = {
-            @JoinColumn(name="driver_id")},inverseJoinColumns = {
-            @JoinColumn(name="car_id")})
-    private Set<Car> cars;
 
-    public Set<Car> getCars() {
-        return cars;
-    }
-
-    public void setCars(Set<Car> cars) {
-        this.cars = cars;
-    }
 
     public Integer getId() {
         return id;

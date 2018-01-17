@@ -13,20 +13,24 @@ public class Car {
     //是否有限号
     private boolean isLimited;
     //尾号
-    private Integer tailLicense;
 
-    @ManyToMany(cascade = CascadeType.PERSIST, fetch=FetchType.LAZY)
-    @JoinTable(name="Car_Driver",joinColumns = {
-            @JoinColumn(name="car_id")},inverseJoinColumns = {
-            @JoinColumn(name="driver_id")})
-    private Set<Driver> drivers;
+    private String License;
+    private Integer limitedDay;
 
-    public Set<Driver> getDrivers() {
-        return drivers;
+    public String getLicense() {
+        return License;
     }
 
-    public void setDrivers(Set<Driver> drivers) {
-        this.drivers = drivers;
+    public void setLicense(String license) {
+        License = license;
+    }
+
+    public Integer getLimitedDay() {
+        return limitedDay;
+    }
+
+    public void setLimitedDay(Integer limitedDay) {
+        this.limitedDay = limitedDay;
     }
 
     public Integer getId() {
@@ -53,12 +57,6 @@ public class Car {
         isLimited = limited;
     }
 
-    public Integer getTailLicense() {
-        return tailLicense;
-    }
 
-    public void setTailLicense(Integer tailLicense) {
-        this.tailLicense = tailLicense;
-    }
     public Car(){}
 }
