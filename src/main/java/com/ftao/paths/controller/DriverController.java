@@ -32,12 +32,12 @@ public class DriverController {
     }
 
     /***
-     * 改
+     * 改和新增
      * @param driver
      * @param bindingResult
      * @return
      */
-    @PutMapping("/drivers/update")
+    @PutMapping("/drivers/save")
     public Result driverUpdate(@Valid Driver driver, BindingResult bindingResult)
     {
         if(bindingResult.hasErrors())

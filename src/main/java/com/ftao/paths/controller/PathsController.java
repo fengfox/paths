@@ -163,9 +163,6 @@ public class PathsController {
         paths.get(j).setLength(paths.get(j).getLength()+dif);
         return paths;
 
-
-
-
     }
 
 }
