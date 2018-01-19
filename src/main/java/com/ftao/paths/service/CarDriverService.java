@@ -32,11 +32,11 @@ public class CarDriverService {
     }
     public List<CarDriver> carDriverFindByCarId(Integer carId)
     {
-        return carDriverRepository.findCarDriverByCarId(carId);
+        return carDriverRepository.findByCarId(carId);
     }
-    public List<CarDriver> carDriversFindByDriverId(Integer driverId)
+    public List<CarDriver> carDriverFindByDriverId(Integer driverId)
     {
-        return carDriverRepository.findCarDriverByDriverId(driverId);
+        return carDriverRepository.findByDriverId(driverId);
     }
 
 }

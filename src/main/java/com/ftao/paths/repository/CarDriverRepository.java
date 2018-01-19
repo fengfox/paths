@@ -7,6 +7,6 @@ import java.util.List;
 
 public interface CarDriverRepository extends JpaRepository<CarDriver,Integer> {
     //通过carid查找
-    public List<CarDriver> findCarDriverByCarId(Integer carId);
-    public List<CarDriver> findCarDriverByDriverId(Integer driverId);
+    List<CarDriver> findByCarId(Integer carId);
+    List<CarDriver> findByDriverId(Integer driverId);
 }
