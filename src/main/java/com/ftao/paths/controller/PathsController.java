@@ -164,5 +164,21 @@ public class PathsController {
         return paths;
 
     }
+    @GetMapping(value="/paths/test")
+    public List<HuffmanTree.Node> testFunction()
+    {
+        List<HuffmanTree.Node> mainNodes=new ArrayList<HuffmanTree.Node>();
+        List<HuffmanTree.Node> subNodes=new ArrayList<HuffmanTree.Node>();
+        mainNodes.add(new HuffmanTree.Node("1",9,3));
+        mainNodes.add(new HuffmanTree.Node("2",8,2));
+        mainNodes.add(new HuffmanTree.Node("3",7,1));
+        mainNodes.add(new HuffmanTree.Node("4",6,1));
+        mainNodes.add(new HuffmanTree.Node("1",9,3));
+        subNodes.add(new HuffmanTree.Node("1",9,3));
+        subNodes.add(new HuffmanTree.Node("1",9,3));
+        subNodes.add(new HuffmanTree.Node("2",8,2));
+        return HuffmanTree.removeList(mainNodes, subNodes);
+
+    }
 
 }

@@ -36,4 +36,7 @@ public class CarLeader {
     public void setLeaderId(Integer leaderId) {
         this.leaderId = leaderId;
     }
+
+    public CarLeader() {
+    }
 }

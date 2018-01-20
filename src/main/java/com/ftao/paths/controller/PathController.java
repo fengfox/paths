@@ -45,4 +45,5 @@ public class PathController {
         pathsService.pathsDelete(id);
         return ResultUtil.success();
     }
+
 }

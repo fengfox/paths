@@ -37,4 +37,7 @@ public class CarDriver {
     public void setDriverId(Integer driverId) {
         this.driverId = driverId;
     }
+
+    public CarDriver() {
+    }
 }

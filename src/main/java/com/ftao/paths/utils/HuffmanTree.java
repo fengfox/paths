@@ -1,9 +1,6 @@
 package com.ftao.paths.utils;
 
-import java.util.ArrayDeque;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Queue;
+import java.util.*;
 
 public class HuffmanTree {
     public static class Node<E>
@@ -60,6 +57,17 @@ public class HuffmanTree {
 
         public void setRange(Integer range) {
             this.range = range;
+        }
+
+        @Override
+        public String toString() {
+            return "Node{" +
+                    "data=" + data +
+                    ", weight=" + weight +
+                    ", leftChild=" + leftChild +
+                    ", rightChild=" + rightChild +
+                    ", range=" + range +
+                    '}';
         }
     }
 
@@ -172,7 +180,7 @@ public class HuffmanTree {
     }
 
     /***
-     *获取符合条件的node列表
+     *获取符合条件的node列表,已不使用.
      * @param root 根节点
      * @param total 总里程数
      * @return
@@ -208,6 +216,63 @@ public class HuffmanTree {
 
         }
         return result;
+    }
+
+    /***
+     * 分配range中的值,让weight的总值能够=total的值得
+     * @param nodes
+     * @param total
+     * @return
+     */
+    public static List<Node> distributionRange(List<Node> nodes,Integer total)
+    {
+
+        Integer sum=0;
+        Integer dif=0;
+        Integer j=0;
+        Random random=new Random();
+        Integer re=0;
+        for(int i=0;i<nodes.size();i++)
+        {
+            sum+=nodes.get(i).getWeight();
+        }
+        dif=total-sum;
+        while(dif>nodes.get(j).getRange())
+        {
+            //随机获得一个在ran范围中的值
+            re=random.nextInt(nodes.get(j).getRange()+1);
+            //总值=总值-ran
+            dif=dif-re;
+            //更新路径上路径值+随机数和ran值-随机数
+            nodes.get(j).setRange(nodes.get(j).getRange()-re);
+            nodes.get(j).setWeight(nodes.get(j).getWeight()+re);
+            //移到下一个数
+            j=(j+1)%nodes.size();
+
+        }
+        //更新最后一个路径上路径值+随机数和ran值-随机数
+        nodes.get(j).setRange(nodes.get(j).getRange()-dif);
+        nodes.get(j).setWeight(nodes.get(j).getWeight()+dif);
+        return nodes;
 
     }
+    public static List<Node> removeList(List<Node> mainNodes,List<Node>subNodes)
+    {
+        Integer mainSize=mainNodes.size();
+        Integer subSize=subNodes.size();
+
+        for(int j=0;j<subSize;j++)
+        {
+            for(int i=0;i<mainNodes.size();i++)
+            {
+                if(mainNodes.get(i).getData()==subNodes.get(j).getData())
+                {
+                    mainNodes.remove(i);
+                    break;
+                }
+            }
+        }
+        return mainNodes;
+    }
+
 }
