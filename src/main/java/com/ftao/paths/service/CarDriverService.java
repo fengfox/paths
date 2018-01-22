@@ -2,6 +2,7 @@ package com.ftao.paths.service;
 
 import com.ftao.paths.domain.CarDriver;
 import com.ftao.paths.repository.CarDriverRepository;
+import com.ftao.paths.utils.CarDriverUitl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -30,13 +31,16 @@ public class CarDriverService {
     {
         return carDriverRepository.findOne(id);
     }
+
     public List<CarDriver> carDriverFindByCarId(Integer carId)
     {
         return carDriverRepository.findByCarId(carId);
     }
+
     public List<CarDriver> carDriverFindByDriverId(Integer driverId)
     {
         return carDriverRepository.findByDriverId(driverId);
     }
+
 
 }

@@ -27,11 +27,8 @@ public class CarDriverController {
     {
         return ResultUtil.success(carDriverService.carDriverFindByCarId(carId));
     }
-    @GetMapping(value="/cardriver/driver/{driverId}")
-    public Result findByDriverId(@PathVariable("driverId") Integer driverId)
-    {
-        return ResultUtil.success(carDriverService.carDriverFindByDriverId(driverId));
-    }
+
+
 
 
 

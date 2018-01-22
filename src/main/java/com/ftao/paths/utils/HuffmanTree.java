@@ -201,6 +201,13 @@ public class HuffmanTree {
         }
         return result;
     }
+
+    /***
+     * 查询出所有符合条件的root节点。
+     * @param root
+     * @param total
+     * @return
+     */
     public static List<Node> findNode2(Node root,Integer total)
     {
         List<Node> list=new ArrayList<Node>();
@@ -273,6 +280,23 @@ public class HuffmanTree {
             }
         }
         return mainNodes;
+    }
+
+    /***
+     * 获取和多个totals匹配的子树,还未完成
+     * @param nodes
+     * @param totals
+     * @return
+     */
+    public static List<List<Node>> nodesSplit(List<Node> nodes,List<Integer> totals)
+    {
+        //先将nodes转换成主树
+        //查询符合条件的节点,随机选一个
+        //将此节点作为子树root,在主树中删除此子树,并返回子树root
+        //将主树初始化,重新设置成nodes
+        //返回重新开始第一步
+        List<List<Node>> nodesList=new ArrayList<List<Node>>();
+        return null;
     }
 
 }
