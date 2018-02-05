@@ -1,5 +1,7 @@
 package com.ftao.paths.utils;
 
+import javax.tools.Tool;
+import javax.validation.constraints.Null;
 import java.util.*;
 
 public class HuffmanTree {
@@ -225,6 +227,29 @@ public class HuffmanTree {
         return result;
     }
 
+    public static Node rootFindByWeigth (Node root,Integer weight)
+    {
+
+        List<Node> nodes=breadthFirst(root);
+        /*
+        for(int i=0;i<nodes.size();i++)
+        {
+            if(nodes.get(i).getLeftChild().getWeight()==weight||nodes.get(i).getRightChild().getWeight()==weight)
+            {
+                return nodes.get(i);
+            }
+        }
+        */
+        for(int i=0;i<nodes.size();i++)
+        {
+            if(nodes.get(i).getWeight()==weight)
+            {
+                return nodes.get(i);
+            }
+        }
+        return null;
+
+    }
     /***
      * 分配range中的值,让weight的总值能够=total的值得
      * @param nodes
@@ -282,6 +307,26 @@ public class HuffmanTree {
         return mainNodes;
     }
 
+
+    /***
+     * 找出叶子节点.
+     * @param nodes
+     * @return
+     */
+    public static List<Node> leafNodes(List<Node> nodes)
+    {
+        List<Node> nodeList=new ArrayList<Node>();
+        for(int i=0;i<nodes.size();i++)
+        {
+            if(nodes.get(i).getData()!= null)
+            {
+                //nodes.get(i).setLeftChild(null);
+                //nodes.get(i).setRightChild(null);
+                nodeList.add(nodes.get(i));
+            }
+        }
+        return nodeList;
+    }
     /***
      * 获取和多个totals匹配的子树,还未完成
      * @param nodes
@@ -295,8 +340,24 @@ public class HuffmanTree {
         //将此节点作为子树root,在主树中删除此子树,并返回子树root
         //将主树初始化,重新设置成nodes
         //返回重新开始第一步
-        List<List<Node>> nodesList=new ArrayList<List<Node>>();
-        return null;
+        List<Node> tmpNodes= nodes;
+        List<List<Node>> nodesList = new ArrayList<List<Node>>();
+        for(int i=0;i<totals.size();i++) {
+
+            Node root = createTree(tmpNodes);
+            List<Node> results=findNode2(root,totals.get(i));
+            Node result= results.get(ToolUitl.integerRandom(results.size()));
+            //Node treeRoot=rootFindByWeigth(root,result.getWeight());
+            List<Node> rootList=new ArrayList<Node>();
+            List<Node> rootTree=new ArrayList<Node>();
+            rootList=breadthFirst(root);
+            rootTree=breadthFirst(result);
+            rootList=leafNodes(rootList);
+            rootTree=leafNodes(rootTree);
+            nodesList.add(rootTree);
+            tmpNodes=removeList(rootList,rootTree);
+        }
+        return nodesList;
     }
 
 }

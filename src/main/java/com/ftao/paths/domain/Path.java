@@ -7,53 +7,53 @@ import javax.persistence.Id;
 public class Path {
     @Id
     @GeneratedValue
-    private Integer id;
-    private Integer length;
-    private Integer type;
-    private Integer ran;
+    private int id;
+    private int length;
+    private int type;
+    private int ran;
     private String route;
     private String remark;
-    private Integer times;
+    private int times;
 
-    public Integer getTimes() {
+    public int getTimes() {
         return times;
     }
 
-    public void setTimes(Integer times) {
+    public void setTimes(int times) {
         this.times = times;
     }
 
-    public Integer getRan() {
+    public int getRan() {
         return ran;
     }
 
-    public void setRan(Integer ran) {
+    public void setRan(int ran) {
         this.ran = ran;
     }
 
     public Path(){}
 
-    public Integer getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(int id) {
         this.id = id;
     }
 
-    public Integer getLength() {
+    public int getLength() {
         return length;
     }
 
-    public void setLength(Integer length) {
+    public void setLength(int length) {
         this.length = length;
     }
 
-    public Integer getType() {
+    public int getType() {
         return type;
     }
 
-    public void setType(Integer type) {
+    public void setType(int type) {
         this.type = type;
     }
 

@@ -1,14 +1,17 @@
 package com.ftao.paths.controller;
 
+import com.ftao.paths.service.PathsService;
 import com.ftao.paths.utils.HuffmanTree;
 import com.ftao.paths.domain.Path;
 import com.ftao.paths.repository.PathRepository;
+import com.ftao.paths.utils.ToolUitl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.websocket.server.PathParam;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -17,6 +20,8 @@ import java.util.Random;
 public class PathsController {
     @Autowired
     private PathRepository pathRepository;
+    @Autowired
+    private PathsService pathsService;
 
     /***
      * 获取所有路程
@@ -99,7 +104,6 @@ public class PathsController {
         Random random=new Random();
         int result=random.nextInt(paths.size());
         paths.remove(result);
-
         return paths;
     }
 
@@ -133,13 +137,13 @@ public class PathsController {
      * @param total
      * @return
      */
-    private List<Path> rebuildPath(List<Path> paths,Integer total)
+    private List<Path> rebuildPath(List<Path> paths,int total)
     {
-        Integer sum=0;
-        Integer dif=0;
-        Integer j=0;
+        int sum=0;
+        int dif=0;
+        int j=0;
         Random random=new Random();
-        Integer re=0;
+        int re=0;
         for(int i=0;i<paths.size();i++)
         {
             sum+=paths.get(i).getLength();
@@ -180,5 +184,58 @@ public class PathsController {
         return HuffmanTree.removeList(mainNodes, subNodes);
 
     }
+
+    /***
+     *根据全部里程和领导里程,计算出来相对应的路程,第一个路径组合是是(全部-领导)的路程,第二个是领导路程
+     * @param totalLength 全部里程
+     * @param leaderLength 领导里程
+     * @return
+     */
+    @PostMapping(value="/paths/calculate")
+    public List<Path> pathsCalculate(@PathParam("totalLength") int totalLength,@PathParam("leaderLength") int leaderLength)
+    {
+        List<Integer> totals=new ArrayList<Integer>();
+        totals.add(totalLength-leaderLength);
+        totals.add(leaderLength);
+        List<Path> tmppaths=new ArrayList<Path>();
+        List<Path> paths=new ArrayList<Path>();
+        tmppaths=pathsService.pathsFindAll();
+        int count=0;
+        for(int i=0;i<tmppaths.size();i++)
+        {
+
+            for(int j=0;j<tmppaths.get(i).getTimes();j++)
+            {
+                Path path=new Path();
+                path.setId(tmppaths.get(i).getId());
+                path.setRemark( tmppaths.get(i).getRemark());
+                path.setTimes( tmppaths.get(i).getTimes());
+                path.setLength( tmppaths.get(i).getLength());
+                path.setRan( tmppaths.get(i).getRan());
+                path.setRoute( tmppaths.get(i).getRoute());
+                path.setType( tmppaths.get(i).getType());
+                paths.add(path);
+            }
+        }
+        //随机删几个path
+        paths.remove(ToolUitl.integerRandom(paths.size()));
+        paths.remove(ToolUitl.integerRandom(paths.size()));
+        List<HuffmanTree.Node> nodes=new ArrayList<HuffmanTree.Node>();
+        //将paths转换成nodes
+        for(int i=0;i<paths.size();i++)
+        {
+            HuffmanTree.Node node=new HuffmanTree.Node();
+            node.setData(paths.get(i));
+            node.setRange(paths.get(i).getRan());
+            node.setWeight(paths.get(i).getLength());
+            nodes.add(node);
+        }
+
+        return rebuildPath(pathsService.pathsCalculate(nodes,totals).get(0),totalLength-leaderLength);
+
+
+    }
+
+
 
 }
